@@ -6,8 +6,8 @@ void setup() {
 }
 
 void draw() {
-  // noStroke();
   int planetSize = int(height*0.2);
+  stroke(255);
   ellipse(width/2, height/2, planetSize, planetSize);
   fill(39, 174, 96,1.0);
 
@@ -18,26 +18,27 @@ void draw() {
   theta = map(width*0.3,0,width,0,PI/2); // Origin of the tree
 
   translate(xBegin, yBegin);
-  stroke(0);
-  branch(60);
+  stroke(137,91,91);
+  branch(60, 5);
 }
 
-void branch(float len) {
- 
+void branch(float len, float strWidth) {
+  strokeWeight(strWidth);
   line(0, 0, 0, -len);
   translate(0, -len);
  
   len *= 0.66;
- 
+  strWidth *= 0.66;
+
   if (len > 2) {
     pushMatrix();
     rotate(theta);
-    branch(len);
+    branch(len, strWidth);
     popMatrix();
  
     pushMatrix();
     rotate(-theta);
-    branch(len);
+    branch(len, strWidth);
     popMatrix();
   }
 }
