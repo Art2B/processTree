@@ -3,12 +3,13 @@ float theta;
 void setup() {
   size(1000,600);
   background(255, 255, 255, 1);
+  colorMode(RGB);
 }
 
 void draw() {
   int planetSize = int(height*0.2);
   stroke(255);
-  fill(39, 174, 96,1.0);
+  fill(39, 174, 96, 1);
   ellipse(width/2, height/2, planetSize, planetSize);
 
   int xBegin = width/2;
@@ -30,7 +31,7 @@ void branch(float len, float strWidth) {
 
   // Add Leaves
   noStroke();
-  fill(85,105,16);
+  fill(85,105,16, 20);
   ellipse(0, 0, 10, 10);
  
   len *= 0.66;
