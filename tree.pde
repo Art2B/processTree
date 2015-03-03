@@ -3,7 +3,8 @@ class Tree {
   color leavesColor = color(85,105,16, 20);
 
   void init(int xBegin, int yBegin, int angle){
-    rotate(angle);
+    float rotateRadians = radians(angle);
+    rotate(rotateRadians);
     line(xBegin, yBegin, xBegin, yBegin-50);
     theta = map(width*0.3,0,width,0,PI/2);
     translate(xBegin, yBegin);
