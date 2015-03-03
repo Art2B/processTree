@@ -2,9 +2,10 @@ class Tree {
   color trunkColor = color(83,35,27);
   color leavesColor = color(85,105,16, 20);
 
-  void init(int xBegin, int yBegin){
+  void init(int xBegin, int yBegin, int angle){
+    rotate(angle);
     line(xBegin, yBegin, xBegin, yBegin-50);
-    theta = map(width*0.3,0,width,0,PI/2); // Origin of the tree
+    theta = map(width*0.3,0,width,0,PI/2);
     translate(xBegin, yBegin);
     renderBranch(60, 5);
   }
