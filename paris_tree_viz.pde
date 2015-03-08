@@ -25,6 +25,10 @@ void draw() {
     translate(width/2, height/2);
     forest[i].init(0,-planetSize/2, angle);
     popMatrix();
+    
+    pushMatrix();
+    forest[i].generateLeaves(angle);
+    popMatrix();
   }
 }
 
