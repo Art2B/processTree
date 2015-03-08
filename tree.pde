@@ -1,6 +1,5 @@
 class Tree {
   color trunkColor = color(83,35,27);
-  color leavesColor = color(85,105,16, 50);
   boolean hasLeaves = false;
 
   void init(int xBegin, int yBegin, int angle){
@@ -19,8 +18,6 @@ class Tree {
     line(0, 0, 0, -len);
     translate(0, -len);
 
-    // createLeave();
-
     len *= 0.66;
     strWidth *= 0.66;
 
@@ -35,12 +32,6 @@ class Tree {
       renderBranch(len, strWidth);
       popMatrix();
     }
-  }
-  // Add leaves
-  void createLeave(){
-    noStroke();
-    fill(leavesColor);
-    ellipse(0, 0, 10, 10);
   }
   void generateLeaves(int angle){
     if(!hasLeaves){
@@ -60,9 +51,23 @@ class Tree {
         float x = (sdX * numX) + mean;
         float y = (sdY * numY) + mean;
         noStroke();
-        fill(leavesColor);
+        fill(getLeaveColor());
         ellipse(x, y, 16, 16);
       }
     }
+  }
+  color getLeaveColor(){
+    float sd = 20;
+    float redMean = 85;
+    float greenMean = 105;
+    float blueMean = 16;
+
+    float red = (sd* randomGaussian()) + redMean;
+    float green = (sd* randomGaussian()) + greenMean;
+    float blue = (sd* randomGaussian()) + blueMean;
+
+    color leaveColor = color(red, green, blue, 50);
+
+    return leaveColor;
   }
 }

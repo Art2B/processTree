@@ -8,7 +8,7 @@ void setup() {
   background(255, 255, 255, 1);
   colorMode(RGB);
 
-  treeNumber = 7;
+  treeNumber = 1;
   forest = new Tree[treeNumber];
   for (int i = 0; i < treeNumber; i++) {
     forest[i] = new Tree();
