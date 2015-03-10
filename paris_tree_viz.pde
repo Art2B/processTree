@@ -7,7 +7,7 @@ void setup() {
   size(1000, 600);
   background(255, 255, 255, 1);
   colorMode(RGB);
-
+  
   treeNumber = 1;
   forest = new Tree[treeNumber];
   for (int i = 0; i < treeNumber; i++) {
@@ -17,15 +17,13 @@ void setup() {
 }
 
 void draw() {
-  generatePlanet();
-
   for (int i=0; i<forest.length; i++) {
     int angle = int(i * (360/treeNumber));
     pushMatrix();
     translate(width/2, height/2);
     forest[i].init(0,-planetSize/2, angle);
     popMatrix();
-    
+
     pushMatrix();
     forest[i].generateLeaves(angle);
     popMatrix();

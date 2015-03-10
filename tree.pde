@@ -13,24 +13,26 @@ class Tree {
 
   // Create branch
   void renderBranch(float len, float strWidth) {
-    stroke(trunkColor);
-    strokeWeight(strWidth);
-    line(0, 0, 0, -len);
-    translate(0, -len);
+    if(!hasLeaves){
+      stroke(trunkColor);
+      strokeWeight(strWidth);
+      line(0, 0, 0, -len);
+      translate(0, -len);
 
-    len *= 0.66;
-    strWidth *= 0.66;
+      len *= 0.66;
+      strWidth *= 0.66;
 
-    if (len > 2) {
-      pushMatrix();
-      rotate(theta);
-      renderBranch(len, strWidth);
-      popMatrix();
+      if (len > 2) {
+        pushMatrix();
+        rotate(theta);
+        renderBranch(len, strWidth);
+        popMatrix();
 
-      pushMatrix();
-      rotate(-theta);
-      renderBranch(len, strWidth);
-      popMatrix();
+        pushMatrix();
+        rotate(-theta);
+        renderBranch(len, strWidth);
+        popMatrix();
+      }
     }
   }
   void generateLeaves(int angle){
@@ -48,7 +50,7 @@ class Tree {
         float sdY = 20;
         float mean = 0;
 
-        float x = (sdX * numX) + mean;
+        float x = (sdX * numX) -15;
         float y = (sdY * numY) + mean;
         noStroke();
         fill(getLeaveColor());
@@ -66,7 +68,7 @@ class Tree {
     float green = (sd* randomGaussian()) + greenMean;
     float blue = (sd* randomGaussian()) + blueMean;
 
-    color leaveColor = color(red, green, blue, 50);
+    color leaveColor = color(red, green, blue, 200);
 
     return leaveColor;
   }
