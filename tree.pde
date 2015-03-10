@@ -37,10 +37,9 @@ class Tree {
   }
   void generateLeaves(int angle){
     if(!hasLeaves){
-      translate(width/2, height/2);
       float rotateRadians = radians(angle);
       rotate(rotateRadians);
-      translate(0, -200);
+      translate(0, -140);
 
       hasLeaves = true;
       for (int i = 0; i < 500; ++i) {
