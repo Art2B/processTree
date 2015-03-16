@@ -1,6 +1,6 @@
 JSONArray data;
 JSONArray trees;
-JSONArray[] filteredTrees;
+JSONObject[] filteredTrees;
 
 void setup() {
   size(1000, 1000);
@@ -9,7 +9,7 @@ void setup() {
 
   data = loadJSONArray("data/tree_data.json");
   trees = filterBySpecie(data);
-  filteredTrees = new JSONArray[5];
+  filteredTrees = new JSONObject[5];
 
   int[] minRanges = new int[5];
   minRanges[0] = 0;
@@ -42,14 +42,14 @@ void draw() {
 
   for(int j=0; j<filteredTrees.length; j++){
     strokeWeight(strokeSize);
-    float rad = (2*PI)/filteredTrees[j].size();
-    for(int i =0; i < filteredTrees[j].size(); i++){
-      JSONObject element = filteredTrees[j].getJSONObject(i);
-      float radBegin = rad*i;
-      float radEnd = rad*(i+1);
+    float rad = 0;
+    for(int i =0; i < filteredTrees[j].getJSONArray("trees").size(); i++){
+      JSONObject element = filteredTrees[j].getJSONArray("trees").getJSONObject(i);
+      float radBegin = rad;
+      rad += ((float(element.getInt("nbr"))/filteredTrees[j].getInt("rangeNbr"))*(2*PI)) ;
       color strokeColor = color(element.getJSONObject("color").getFloat("red"), element.getJSONObject("color").getFloat("green"), element.getJSONObject("color").getFloat("blue"));
       stroke(strokeColor);
-      arc(width/2, height/2, ellipseSize, ellipseSize, radBegin, radEnd);
+      arc(width/2, height/2, ellipseSize, ellipseSize, radBegin, rad);
     }
     ellipseSize += (strokeSize*2);
     strokeSize *= 0.9;
@@ -85,16 +85,21 @@ JSONArray filterBySpecie(JSONArray data){
   return trees;
 }
 
-JSONArray filterByRange(JSONArray data, int minRange, int maxRange){
-  JSONArray trees = new JSONArray();
+JSONObject filterByRange(JSONArray data, int minRange, int maxRange){
+  JSONObject trees = new JSONObject();
+  JSONArray tempTrees = new JSONArray();
+  int rangeNbr = 0;
   for(int i = 0; i < data.size(); i++){
     if(data.getJSONObject(i).getInt("nbr") > minRange && data.getJSONObject(i).getInt("nbr") < maxRange){
-      trees.append(data.getJSONObject(i));
+      tempTrees.append(data.getJSONObject(i));
+      rangeNbr += data.getJSONObject(i).getInt("nbr");
     }
   }
-  for(int i = 0; i < trees.size(); i++){
-    trees.getJSONObject(i).setJSONObject("color", getLeaveColor());
+  for(int i = 0; i < tempTrees.size(); i++){
+    tempTrees.getJSONObject(i).setJSONObject("color", getLeaveColor());
   }
+  trees.setInt("rangeNbr", rangeNbr);
+  trees.setJSONArray("trees", tempTrees);
   return trees;
 }
 
