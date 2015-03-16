@@ -7,7 +7,7 @@ void setup() {
   background(255, 255, 255, 1);
   colorMode(RGB);
 
-  data = loadJSONArray("data/tree_data.json");
+  data = loadJSONArray("http://opendata.paris.fr/explore/dataset/les-arbres/download/?format=json&timezone=Europe/Berlin");
   trees = filterBySpecie(data);
   filteredTrees = new JSONObject[5];
 
@@ -96,14 +96,14 @@ JSONObject filterByRange(JSONArray data, int minRange, int maxRange){
     }
   }
   for(int i = 0; i < tempTrees.size(); i++){
-    tempTrees.getJSONObject(i).setJSONObject("color", getLeaveColor());
+    tempTrees.getJSONObject(i).setJSONObject("color", getColor());
   }
   trees.setInt("rangeNbr", rangeNbr);
   trees.setJSONArray("trees", tempTrees);
   return trees;
 }
 
-JSONObject getLeaveColor(){
+JSONObject getColor(){
   float sd = 20;
   float redMean = 85;
   float greenMean = 105;
